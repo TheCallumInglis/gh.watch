@@ -1,6 +1,7 @@
 orgs:
 - name: 4OH4-Ltd
   minReviews: 1
+  maxReviewTimeHours: 24
   repos:
     - bike.diary.customer
     - bike.diary.api
@@ -8,6 +9,7 @@ orgs:
 
 - name: TheCallumInglis
   minReviews: 0
+  maxReviewTimeHours: 24
   repos:
     - gh.watch
     - proxmox.k8s

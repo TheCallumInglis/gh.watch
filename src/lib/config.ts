@@ -5,17 +5,20 @@ import yaml from "js-yaml";
 // TODO: Override by env
 const reposFilePath = path.join(process.cwd(), "assets", "repos.yaml");
 const defaultMinReviews = 0;
+const defaultMaxReviewTimeHours = 72;
 
 export type RepoRef = {
   org: string;
   repo: string;
   minReviews: number;
+  maxReviewTimeHours: number;
 };
 
 type RawConfig = {
   orgs: {
     name: string;
     minReviews?: number;
+    maxReviewTimeHours?: number;
     repos: string[];
   }[];
 };
@@ -41,6 +44,11 @@ export const loadRepoConfig = (): RepoRef[] => {
       typeof org.minReviews === "number" && Number.isFinite(org.minReviews)
         ? org.minReviews
         : defaultMinReviews;
+    
+    const maxReviewTimeHours =
+      typeof org.maxReviewTimeHours === "number" && Number.isFinite(org.maxReviewTimeHours)
+        ? org.maxReviewTimeHours
+        : defaultMaxReviewTimeHours;
 
     for (const repo of org.repos) {
       if (!repo) continue;
@@ -48,7 +56,8 @@ export const loadRepoConfig = (): RepoRef[] => {
       result.push({
         org: org.name.trim(),
         repo: repo.trim(),
-        minReviews
+        minReviews,
+        maxReviewTimeHours
       });
     }
   }

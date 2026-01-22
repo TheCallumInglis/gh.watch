@@ -11,4 +11,5 @@ export type PullRow = {
   approvalCount: number;
   minReviews: number;
   isDraft: boolean;
+  slaBreached?: boolean;
 };
