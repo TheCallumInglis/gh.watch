@@ -121,7 +121,15 @@ const PrTable = () => {
                     #{r.number}
                   </Link>
                 </td>
-                <td style={tdTitle} title={r.title}>{r.title}</td>
+                <td 
+                  style={{
+                    ...tdTitle,
+                    color: r.isDraft ? "#9ca3af" : "#111",
+                    fontStyle: r.isDraft ? "italic" : "normal"
+                  }} 
+                  title={r.title}>
+                  {r.title}
+                </td>
                 <td style={td}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                   {r.authorAvatarUrl ? (

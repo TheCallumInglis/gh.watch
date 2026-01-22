@@ -23,6 +23,7 @@ type PRNode = {
   reviews: { 
     nodes: ReviewsNode[] 
   };
+  isDraft?: boolean;
 };
 
 export const fetchOpenPRs = async (
@@ -34,6 +35,7 @@ export const fetchOpenPRs = async (
 
   const query = `
     query($owner: String!, $repo: String!, $limit: Int!) {
+      rateLimit { limit remaining resetAt cost }
       repository(owner: $owner, name: $repo) {
         pullRequests(first: $limit, states: OPEN, orderBy: {field: UPDATED_AT, direction: DESC}) {
           nodes {
@@ -45,6 +47,7 @@ export const fetchOpenPRs = async (
               login
               avatarUrl
             }
+            isDraft
             reviews(first: 100) {
               nodes {
                 state
@@ -99,7 +102,8 @@ export const fetchOpenPRs = async (
       ageSeconds,
       reviewerCount,
       approvalCount,
-      minReviews: 0
+      minReviews: 0,
+      isDraft: pr.isDraft ?? false,
     };
   });
 };
