@@ -12,7 +12,10 @@ export const GET = async () => {
   const results = await Promise.allSettled(
     repos.map(({ org, repo, minReviews } : RepoRef) =>
       fetchOpenPRs(org, repo, 50).then((prs) =>
-        prs.map((pr) => ({ ...pr, minReviews }))
+        prs.map((pr) => ({ 
+          ...pr, 
+          minReviews,
+        }))
       )
     )
   );
