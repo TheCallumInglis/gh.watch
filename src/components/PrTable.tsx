@@ -152,8 +152,8 @@ const PrTable = () => {
                 <td style={td}>
                   <span style={{
                     ...pill,
-                    background: r.ageSeconds > (60 * 60 * 6) ? "#fef3c7" : "#e0e7ff", // 6 Hrs
-                    color: r.ageSeconds > (60 * 60 * 6) ? "#92400e" : "#3730a3" // 6 Hrs; TODO: Derive SLA from config
+                    background: r.slaBreached ? "#fee2e2" : "#e0e7ff",
+                    color: r.slaBreached ? "#991b1b" : "#3730a3" 
                   }}>
                     {formatAge(r.ageSeconds)}
                   </span>
