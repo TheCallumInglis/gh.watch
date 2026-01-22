@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/TheCallumInglis/gh.watch/compare/v1.0.0...v1.1.0) (2026-01-22)
+
+
+### Features
+
+* Adds version footer ([5f6eee2](https://github.com/TheCallumInglis/gh.watch/commit/5f6eee2660202f96f60e5b77c20a55e576de128f))
+
 # 1.0.0 (2026-01-22)
 
 

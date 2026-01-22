@@ -8,6 +8,6 @@ export async function GET() {
     status: "ok",
     timestamp: new Date().toISOString(),
     version,
-    repository: repository || null,
+    repository: repository?.url || null,
   });
 }
