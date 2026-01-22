@@ -1,0 +1,14 @@
+orgs:
+- name: 4OH4-Ltd
+  minReviews: 1
+  repos:
+    - bike.diary.customer
+    - bike.diary.api
+    - bike.diary.legacy
+
+- name: TheCallumInglis
+  minReviews: 0
+  repos:
+    - gh.watch
+    - proxmox.k8s
+    - project-timer-cube

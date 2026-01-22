@@ -1,0 +1,15 @@
+services:
+  gh-watch:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: gh-watch
+    ports:
+      - "3000:3000"
+    environment:
+      # GITHUB_TOKEN: TO_BE_SET_IN_ENV
+      PORT: 3000
+      NODE_ENV: production
+    volumes:
+      - ./assets/repos.yaml:/app/assets/repos.yaml:ro
+    restart: unless-stopped

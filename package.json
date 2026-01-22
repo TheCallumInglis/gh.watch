@@ -1,0 +1,39 @@
+{
+  "name": "gh.watch",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start -p 3000",
+    "lint": "next lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheCallumInglis/gh.watch.git"
+  },
+  "keywords": [],
+  "author": "Callum Inglis",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/TheCallumInglis/gh.watch/issues"
+  },
+  "homepage": "https://github.com/TheCallumInglis/gh.watch#readme",
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "eslint-config-next": "16.1.4",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@octokit/rest": "^21.0.0",
+    "js-yaml": "^4.1.0",
+    "next": "^14.2.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0"
+  }
+}
