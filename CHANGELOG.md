@@ -4,6 +4,20 @@
 ### Bug Fixes
 
 * Adds @semantic-release/npm ([2b98966](https://github.com/TheCallumInglis/gh.watch/commit/2b98966436c35705734cb0f4754ff7cd711694cf))
+* Dummy Commit ([401385e](https://github.com/TheCallumInglis/gh.watch/commit/401385e5312eaebca1d09e06e7c7a407b6a4f629))
+* version bump ([9ceab0a](https://github.com/TheCallumInglis/gh.watch/commit/9ceab0a12894c6965318ad0d34c3d9446c47fe5a))
+
+
+### Features
+
+* Adds version footer ([5f6eee2](https://github.com/TheCallumInglis/gh.watch/commit/5f6eee2660202f96f60e5b77c20a55e576de128f))
+
+# [1.1.0](https://github.com/TheCallumInglis/gh.watch/compare/v1.0.0...v1.1.0) (2026-01-23)
+
+
+### Bug Fixes
+
+* Adds @semantic-release/npm ([2b98966](https://github.com/TheCallumInglis/gh.watch/commit/2b98966436c35705734cb0f4754ff7cd711694cf))
 * version bump ([9ceab0a](https://github.com/TheCallumInglis/gh.watch/commit/9ceab0a12894c6965318ad0d34c3d9446c47fe5a))
 
 
