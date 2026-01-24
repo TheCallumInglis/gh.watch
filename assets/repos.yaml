@@ -1,6 +1,6 @@
 orgs:
 - name: 4OH4-Ltd
-  minReviews: 1
+  minApprovals: 1
   maxReviewTimeHours: 24
   repos:
     - bike.diary.customer
@@ -8,7 +8,7 @@ orgs:
     - bike.diary.legacy
 
 - name: TheCallumInglis
-  minReviews: 0
+  minApprovals: 0
   maxReviewTimeHours: 24
   repos:
     - gh.watch

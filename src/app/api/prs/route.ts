@@ -11,11 +11,11 @@ export const GET = async () => {
   const repos = loadRepoConfig();
 
   const results = await Promise.allSettled(
-    repos.map(({ org, repo, minReviews, maxReviewTimeHours } : RepoRef) =>
-      fetchOpenPRs(org, repo, 50).then((prs) =>
+    repos.map(({ org, repo, minApprovals, maxReviewTimeHours } : RepoRef) =>
+      fetchOpenPRs(org, repo, 50).then((prs) => // TODO: Push in entire org object and calc approvals/slas etc there
         prs.map((pr) => ({ 
           ...pr, 
-          minReviews,
+          minApprovals,
           slaBreached: pr.ageSeconds > maxReviewTimeHours * 3600
         }))
       )

@@ -8,6 +8,7 @@ const octokit = (): Octokit => {
 
 type ReviewsNode = {
   author?: { login: string } | null;
+  submittedAt?: string | null;
   state: "APPROVED" | "CHANGES_REQUESTED" | "COMMENTED" | "DISMISSED" | "PENDING";
 };
 
@@ -51,6 +52,7 @@ export const fetchOpenPRs = async (
             reviews(first: 100) {
               nodes {
                 state
+                submittedAt
                 author { 
                   login
                 }
@@ -75,20 +77,26 @@ export const fetchOpenPRs = async (
     const updatedAt = pr.updatedAt ?? new Date().toISOString();
     const ageSeconds = Math.max(0, Math.floor((now - new Date(updatedAt).getTime()) / 1000));
 
-    // Only consider users latest review
-    const latestByUser = new Map<string, string>();
+    // Only consider non-pending reviews made after the last update, per user
+    const latestReviewsByUser = new Map<string, { state: string; submittedAt: number }>();
 
-    for (const r of pr.reviews?.nodes ?? []) {
-        const login = r.author?.login;
-        if (!login) continue;
-        if (r.state === "PENDING") continue;
+    for (const r of pr.reviews?.nodes ?? [] as ReviewsNode[]) {
+      const login = r.author?.login ?? null;
+      if (!login) continue;
+      if (r.state === "PENDING") continue;
 
-        latestByUser.set(login, r.state);
+      const submittedAt = r.submittedAt ? new Date(r.submittedAt).getTime() : 0;
+
+      const existingReview = latestReviewsByUser.get(login);
+      if (!existingReview || submittedAt >= new Date(updatedAt).getTime()) {
+        // No existing review, or this one is newer
+        latestReviewsByUser.set(login, { state: r.state, submittedAt });
+      }
     }
 
-    const reviewerCount = latestByUser.size;
-    const approvalCount = Array.from(latestByUser.values())
-        .filter((state) => state === "APPROVED")
+    const reviewerCount = latestReviewsByUser.size;
+    const approvalCount = Array.from(latestReviewsByUser.values())
+        .filter((x) => x.state === "APPROVED")
         .length;
 
     return {
@@ -102,7 +110,7 @@ export const fetchOpenPRs = async (
       ageSeconds,
       reviewerCount,
       approvalCount,
-      minReviews: 0,
+      minApprovals: 0, // Populated Later
       isDraft: pr.isDraft ?? false,
     };
   });

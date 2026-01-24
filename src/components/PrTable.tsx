@@ -164,12 +164,12 @@ const PrTable = () => {
                   <span
                     style={{
                       ...pill,
-                      background: r.reviewerCount < r.minReviews ? "#fee2e2" : "#dbead8",
-                      color: r.reviewerCount < r.minReviews ? "#991b1b" : "#317226"
+                      background: r.approvalCount < r.minApprovals ? "#fee2e2" : "#dbead8",
+                      color: r.approvalCount < r.minApprovals ? "#991b1b" : "#317226"
                     }}
-                    title={`Reviews: ${r.reviewerCount} / required: ${r.minReviews}`}
+                    title={`Approvals: ${r.approvalCount} / Required: ${r.minApprovals}`}
                   >
-                    {r.reviewerCount}/{r.minReviews}
+                    {r.approvalCount}/{r.minApprovals}
                   </span>
                 </td>
               </tr>

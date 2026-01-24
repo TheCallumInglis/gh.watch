@@ -10,14 +10,14 @@ const defaultMaxReviewTimeHours = 72;
 export type RepoRef = {
   org: string;
   repo: string;
-  minReviews: number;
+  minApprovals: number;
   maxReviewTimeHours: number;
 };
 
 type RawConfig = {
   orgs: {
     name: string;
-    minReviews?: number;
+    minApprovals?: number;
     maxReviewTimeHours?: number;
     repos: string[];
   }[];
@@ -40,9 +40,9 @@ export const loadRepoConfig = (): RepoRef[] => {
       throw new Error(`Invalid org entry in ${reposFilePath}: ${JSON.stringify(org)}`);
     }
 
-    const minReviews =
-      typeof org.minReviews === "number" && Number.isFinite(org.minReviews)
-        ? org.minReviews
+    const minApprovals =
+      typeof org.minApprovals === "number" && Number.isFinite(org.minApprovals)
+        ? org.minApprovals
         : defaultMinReviews;
     
     const maxReviewTimeHours =
@@ -56,7 +56,7 @@ export const loadRepoConfig = (): RepoRef[] => {
       result.push({
         org: org.name.trim(),
         repo: repo.trim(),
-        minReviews,
+        minApprovals,
         maxReviewTimeHours
       });
     }

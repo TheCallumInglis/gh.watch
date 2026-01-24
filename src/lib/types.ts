@@ -9,7 +9,7 @@ export type PullRow = {
   ageSeconds: number;
   reviewerCount: number;
   approvalCount: number;
-  minReviews: number;
+  minApprovals: number;
   isDraft: boolean;
   slaBreached?: boolean;
 };
