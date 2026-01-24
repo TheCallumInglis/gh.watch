@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/TheCallumInglis/gh.watch/compare/v1.2.0...v1.3.0) (2026-01-24)
+
+
+### Features
+
+* Filter by org & author ([2beb647](https://github.com/TheCallumInglis/gh.watch/commit/2beb647f3e3505b30f13e50189fc222b5500b116))
+
 # [1.2.0](https://github.com/TheCallumInglis/gh.watch/compare/v1.1.2...v1.2.0) (2026-01-24)
 
 
