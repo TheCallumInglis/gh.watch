@@ -1,9 +1,7 @@
-export type PullRow = {
+export type PullRow = Author & {
   repo: string;
   number: number;
   title: string;
-  author: string;
-  authorAvatarUrl?: string;
   url: string;
   updatedAt: string;
   ageSeconds: number;
@@ -13,3 +11,8 @@ export type PullRow = {
   isDraft: boolean;
   slaBreached?: boolean;
 };
+
+export type Author = {
+  author: string;
+  authorAvatarUrl?: string;
+}
