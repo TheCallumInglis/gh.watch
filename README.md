@@ -1,6 +1,8 @@
 # gh.watch
 
-Lightweight GitHub repository watcher built with Next.js and Docker.
+Lightweight GitHub repository watcher built with Next.js / TypeScript. Designed for quick overview of active PRs across multiple organisations & repositories.
+
+![GH Watch - v1.1.2](./assets/gh-watch.1.1.2.png)
 
 ## Setup
 
