@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import type { PullRow } from "../lib/types";
+import type { Author, PullRow } from "../lib/types";
 import Link from "next/link";
+import { PrFilter } from "./PrFilter";
 
 type ApiResponse = {
   generatedAt: string;
@@ -22,6 +23,8 @@ const formatAge = (seconds: number) => {
 const PrTable = () => {
   const [data, setData] = useState<ApiResponse | null>(null);
   const [q, setQ] = useState("");
+  const [orgFilter, setOrgFilter] = useState<string | null>(null);
+  const [authorFilter, setAuthorFilter] = useState<string | null>(null);
 
   async function load() {
     const res = await fetch(`/api/prs?t=${Date.now()}`, { 
@@ -40,10 +43,19 @@ const PrTable = () => {
   const rows = useMemo(() => {
     const base = data?.rows ?? [];
     const ql = q.trim().toLowerCase();
-
+    
     let filtered = base;
+
+    if (orgFilter) {
+      filtered = filtered.filter((r) => r.repo.startsWith(`${orgFilter}/`));
+    }
+
+    if (authorFilter) {
+      filtered = filtered.filter((r) => r.author === authorFilter);
+    }
+
     if (ql) {
-      filtered = base.filter((r) =>
+      filtered = filtered.filter((r) =>
         r.repo.toLowerCase().includes(ql) ||
         r.title.toLowerCase().includes(ql) ||
         r.author.toLowerCase().includes(ql) ||
@@ -56,7 +68,31 @@ const PrTable = () => {
     });
 
     return sorted;
-  }, [data, q]);
+  }, [data, orgFilter, authorFilter, q]);
+
+  // Orgs & Individual users are fundamentally the same here
+  const orgs = useMemo(() => {
+    const set = new Set<string>();
+    data?.rows.forEach((r) => {
+      const org = r.repo.split("/")[0]; 
+      set.add(org);
+    });
+    return Array.from(set).sort();
+  }, [data]);
+
+  const authors = useMemo(() => {
+    const set = new Set<Author>();
+    data?.rows.forEach((r) => {
+      if (r.author && !Array.from(set).some(a => a.author === r.author)) {
+        set.add({
+          author: r.author, 
+          authorAvatarUrl: r.authorAvatarUrl
+        });
+      }
+    });
+
+    return Array.from(set).sort();
+  }, [data]);
 
   return (
     <div style={{ fontFamily: "system-ui, -apple-system, Segoe UI, Roboto, Arial" }}>
@@ -84,6 +120,15 @@ const PrTable = () => {
           {data ? `Updated: ${new Date(data.generatedAt).toLocaleString()}` : "Loading…"}
         </div>
       </div>
+
+      <PrFilter
+        orgs={orgs}
+        authors={authors}
+        orgFilter={orgFilter}
+        authorFilter={authorFilter}
+        setOrgFilter={setOrgFilter}
+        setAuthorFilter={setAuthorFilter}
+      />
 
       {/* Show errors if any */}
       {data?.errors?.length ? (
@@ -177,8 +222,8 @@ const PrTable = () => {
 
             {!rows.length ? (
               <tr>
-                <td colSpan={6} style={{ padding: 24, textAlign: "center", color: "#666" }}>
-                  No PRs found (or you don't have access).
+                <td colSpan={7} style={{ padding: 24, textAlign: "center", color: "#666" }}>
+                  No PRs found
                 </td>
               </tr>
             ) : null}
