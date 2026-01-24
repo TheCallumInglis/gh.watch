@@ -1,3 +1,11 @@
+## [1.1.1](https://github.com/TheCallumInglis/gh.watch/compare/v1.1.0...v1.1.1) (2026-01-24)
+
+
+### Bug Fixes
+
+* Cache Busting ([efb8f6d](https://github.com/TheCallumInglis/gh.watch/commit/efb8f6d4fd4d8f9be988f995e99fb9c26a917c1f))
+* revalidate=0; Cache Buster ([f6cf16a](https://github.com/TheCallumInglis/gh.watch/commit/f6cf16a67d234bc33b7db00ae139c4b518bb4843))
+
 # [1.1.0](https://github.com/TheCallumInglis/gh.watch/compare/v1.0.0...v1.1.0) (2026-01-23)
 
 
