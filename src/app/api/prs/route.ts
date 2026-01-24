@@ -2,12 +2,15 @@ import { NextResponse } from "next/server";
 import { loadRepoConfig } from "../../../lib/config";
 import { fetchOpenPRs } from "../../../lib/github";
 import { PullRow } from "../../../lib/types";
-import { RepoRef } from "../../../lib/config";
+import { RepoRef, defaultTTL } from "../../../lib/config";
 
 export const dynamic = "force-dynamic"; // no caching
 export const revalidate = 0;
 
-export const GET = async () => {
+let cache: { expiresAt: number; payload: any } | null = null;
+let inFlightRequest: Promise<any> | null = null;
+
+const buildPayload = async () => {
   const repos = loadRepoConfig();
 
   const results = await Promise.allSettled(
@@ -36,18 +39,50 @@ export const GET = async () => {
   // Oldest first
   rows.sort((a, b) => b.ageSeconds - a.ageSeconds);
 
-  return NextResponse
-    .json({
-      generatedAt: new Date().toISOString(),
-      rows,
-      errors
-    },
-    {
+  return {
+    generatedAt: new Date().toISOString(),
+    cachedAt: new Date().toISOString(),
+    ttlSeconds: Math.floor(defaultTTL / 1000),
+    rows,
+    errors
+  }
+}
+
+export const GET = async () => {
+  const now = Date.now();
+
+  if (cache && cache.expiresAt > now) {
+    // Cache Hit
+    return NextResponse.json(cache.payload, {
       headers: {
-        "Content-Type": "application/json",
-        "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
-        "Pragma": "no-cache",
-        "Expires": "0",
+        "Cache-Control": "no-store",
+        "Expires": new Date(cache.expiresAt).toISOString(),
+        "x-gh-watch-cache": "HIT",
       }
     });
+  }
+
+  // Cache Miss - Build new payload if not already doing so
+  if (!inFlightRequest) {
+    inFlightRequest = (async () => {
+      const payload = await buildPayload();
+      cache = { 
+        payload, 
+        expiresAt: Date.now() + defaultTTL
+      };
+      return payload;
+    })().finally(() => {
+      inFlightRequest = null;
+    });
+  }
+
+  const payload = await inFlightRequest;
+
+  return NextResponse.json(payload, {
+    headers: {
+      "Cache-Control": "no-store",
+      "Expires": new Date(cache.expiresAt).toISOString(),
+      "x-gh-watch-cache": "MISS",
+    }
+  });
 }
