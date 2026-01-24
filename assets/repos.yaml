@@ -6,6 +6,15 @@ orgs:
     - bike.diary.customer
     - bike.diary.api
     - bike.diary.legacy
+    - dales.apps.stocktake
+    - dc-shopify-refresh
+    - dales.shopify.stockupdateutility
+    - bike.diary.dbmigration
+    - dales.onlinebikesizing
+    - 4oh4.co.uk
+    - sitenotfound.co.uk
+    - ARDA
+    - zabbix_web_checks
 
 - name: TheCallumInglis
   minApprovals: 0
