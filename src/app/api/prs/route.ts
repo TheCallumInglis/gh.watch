@@ -5,6 +5,7 @@ import { PullRow } from "../../../lib/types";
 import { RepoRef } from "../../../lib/config";
 
 export const dynamic = "force-dynamic"; // no caching
+export const revalidate = 0;
 
 export const GET = async () => {
   const repos = loadRepoConfig();
@@ -35,9 +36,18 @@ export const GET = async () => {
   // Oldest first
   rows.sort((a, b) => b.ageSeconds - a.ageSeconds);
 
-  return NextResponse.json({
-    generatedAt: new Date().toISOString(),
-    rows,
-    errors
-  });
+  return NextResponse
+    .json({
+      generatedAt: new Date().toISOString(),
+      rows,
+      errors
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+        "Pragma": "no-cache",
+        "Expires": "0",
+      }
+    });
 }
