@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/TheCallumInglis/gh.watch/compare/v1.1.2...v1.2.0) (2026-01-24)
+
+
+### Features
+
+* Adds 4oh4 repos ([f180397](https://github.com/TheCallumInglis/gh.watch/commit/f1803978b8f2f2406f1451aa3e3ad11af2032990))
+
 ## [1.1.2](https://github.com/TheCallumInglis/gh.watch/compare/v1.1.1...v1.1.2) (2026-01-24)
 
 
