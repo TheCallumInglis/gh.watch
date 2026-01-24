@@ -24,7 +24,9 @@ const PrTable = () => {
   const [q, setQ] = useState("");
 
   async function load() {
-    const res = await fetch("/api/prs", { cache: "no-store" });
+    const res = await fetch(`/api/prs?t=${Date.now()}`, { 
+      cache: "no-store" 
+    });
     const json = (await res.json()) as ApiResponse;
     setData(json);
   }
