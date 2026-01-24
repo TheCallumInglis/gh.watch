@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/TheCallumInglis/gh.watch/compare/v1.3.0...v1.4.0) (2026-01-24)
+
+
+### Features
+
+* Adds caching on /api/prs ([91e9f58](https://github.com/TheCallumInglis/gh.watch/commit/91e9f5820ea15809fa09666a13c640367c6685e2))
+
 # [1.3.0](https://github.com/TheCallumInglis/gh.watch/compare/v1.2.0...v1.3.0) (2026-01-24)
 
 
