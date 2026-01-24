@@ -6,6 +6,7 @@ import yaml from "js-yaml";
 const reposFilePath = path.join(process.cwd(), "assets", "repos.yaml");
 const defaultMinReviews = 0;
 const defaultMaxReviewTimeHours = 72;
+export const defaultTTL = 30000;
 
 export type RepoRef = {
   org: string;
